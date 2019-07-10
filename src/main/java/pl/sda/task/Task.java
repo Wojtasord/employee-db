@@ -8,6 +8,7 @@ public class Task {
     private long id;
     private String title;
     private Employee employee;
+    private TaskType taskType;
 
     public Task() {
     }
@@ -15,10 +16,16 @@ public class Task {
     public Task(Task task, long id) {
         this.id = id;
         title = task.title;
+        taskType = task.taskType;
     }
 
     public Task(String title) {
         this.title = title;
+    }
+
+    public Task(String title, TaskType taskType) {
+        this(title);
+        this.taskType = taskType;
     }
 
     @Override
@@ -57,5 +64,13 @@ public class Task {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 }

@@ -3,14 +3,34 @@ package pl.sda.task;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.sda.DbTestUtils;
-import pl.sda.task.Task;
-import pl.sda.task.TaskDB;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.sda.task.TaskType.PRIVATE;
+import static pl.sda.task.TaskType.WORK;
 
 public class TaskDbTest {
+
+    @DisplayName("given db with tasks" +
+            "when find by type" +
+            "then result contains only task of that type")
+    @Test
+    void findByTypeTest() {
+        //given
+        TaskDB taskDB = emptyTaskDb();
+        Task fix_bug = new Task("Fix Bug", WORK);
+        Task fix_bug2 = new Task("Fix Bug 2", WORK);
+        Task dentist = new Task("Dentist", PRIVATE);
+        long workTaskId1 = taskDB.add(fix_bug);
+        long workTaskId2 = taskDB.add(fix_bug2);
+        long privateTaskId = taskDB.add(dentist);
+        //when
+        Iterable<Task> result = taskDB.findByType(PRIVATE);
+        //then
+        assertThat(result).hasSize(1);
+        assertThat(result.iterator().next().getId() == privateTaskId);
+    }
 
     @DisplayName("when add 3 tasks in db, then generated ids are unique")
     @Test

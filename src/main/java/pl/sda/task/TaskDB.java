@@ -8,4 +8,6 @@ public interface TaskDB {
     Iterable<Task> findAll();
 
     Optional<Task> findById(long id);
+
+    Iterable<Task> findByType(TaskType type);
 }

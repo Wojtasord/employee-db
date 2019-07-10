@@ -3,6 +3,7 @@ package pl.sda.task;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class InMemoryTaskDB implements TaskDB {
 
@@ -29,6 +30,11 @@ public class InMemoryTaskDB implements TaskDB {
     public Optional<Task> findById(long id) {
         return tasks.stream().filter(task -> task.getId() == id)
                 .findAny();
+    }
+
+    @Override
+    public Iterable<Task> findByType(TaskType type) {
+        return tasks.stream().filter(task -> task.getTaskType() == type).collect(Collectors.toList());
     }
 
     private long generateId() {
