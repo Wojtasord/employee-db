@@ -9,6 +9,7 @@ public class Task {
     private String title;
     private Employee employee;
     private TaskType taskType;
+    private TaskPriority priority;
 
     public Task() {
     }
@@ -17,6 +18,7 @@ public class Task {
         this.id = id;
         title = task.title;
         taskType = task.taskType;
+        priority = task.priority;
     }
 
     public Task(String title) {
@@ -26,6 +28,13 @@ public class Task {
     public Task(String title, TaskType taskType) {
         this(title);
         this.taskType = taskType;
+    }
+
+    public Task(String title, TaskType taskType, TaskPriority priority) {
+
+        this.title = title;
+        this.taskType = taskType;
+        this.priority = priority;
     }
 
     @Override
@@ -72,5 +81,9 @@ public class Task {
 
     public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
+    }
+
+    public TaskPriority getPriority() {
+        return priority;
     }
 }

@@ -37,6 +37,11 @@ public class InMemoryTaskDB implements TaskDB {
         return tasks.stream().filter(task -> task.getTaskType() == type).collect(Collectors.toList());
     }
 
+    @Override
+    public Iterable<Task> findByPriority(TaskPriority priority) {
+        return tasks.stream().filter(task -> task.getPriority() == priority).collect(Collectors.toList());
+    }
+
     private long generateId() {
         return tasks.size() + 1;
     }

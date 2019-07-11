@@ -10,4 +10,6 @@ public interface TaskDB {
     Optional<Task> findById(long id);
 
     Iterable<Task> findByType(TaskType type);
+
+    Iterable<Task> findByPriority(TaskPriority priority);
 }

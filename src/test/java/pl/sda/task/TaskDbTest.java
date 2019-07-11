@@ -12,7 +12,27 @@ import static pl.sda.task.TaskType.WORK;
 
 public class TaskDbTest {
 
-    @DisplayName("given db with tasks" +
+    @DisplayName("Given db with task of different priority" +
+            "When find by priority" +
+            "then the resulr contains only task of that priority")
+    @Test
+    void findByPriorityTest() {
+        //given
+        TaskDB taskDB = emptyTaskDb();
+        Task lowPriorTask = new Task("Fix Bug", WORK, TaskPriority.LOW);
+        Task highPriorTask = new Task("Fix Bug 2", WORK, TaskPriority.HIGH);
+        Task lowPriorTask1 = new Task("Dentist", PRIVATE, TaskPriority.LOW);
+        long lowTaskId1 = taskDB.add(lowPriorTask);
+        long highkTaskId = taskDB.add(highPriorTask);
+        long lowTaskId = taskDB.add(lowPriorTask1);
+        //when
+        Iterable<Task> result = taskDB.findByPriority(TaskPriority.HIGH);
+        //then
+        assertThat(result).hasSize(1);
+        assertThat(result.iterator().next().getPriority()).isEqualTo(TaskPriority.HIGH);
+    }
+
+    @DisplayName("given db with tasks of different type" +
             "when find by type" +
             "then result contains only task of that type")
     @Test
